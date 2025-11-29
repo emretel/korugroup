@@ -1,0 +1,711 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koru Group</title>
+<style>
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@700&display=swap');
+
+/* Reset */
+* {margin:0; padding:0; box-sizing:border-box;}
+
+/* Genel */
+body {
+  font-family:'Inter',sans-serif;
+  background:#F9F9F9;
+  color:#1B1B1B;
+  overflow-x:hidden;
+}
+
+.container {
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* Header */
+.header {
+  position:sticky;
+  top:0;
+  width:100%;
+  background:#fff;
+  z-index:999;
+  padding:12px 0;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+/* Logo */
+.logo {
+  font-family:'Playfair Display', serif;
+  font-size:26px;
+  font-weight:700;
+  color:#FBBF24;
+  white-space:nowrap;
+}
+.logo span {color:#1B1B1B;}
+
+/* Nav */
+.nav {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:15px;
+}
+
+.nav a {
+  text-decoration:none;
+  color:#1B1B1B;
+  font-weight:500;
+  position:relative;
+  transition:0.3s;
+  font-size:14px;
+}
+
+.nav a::after {
+  content:'';
+  position:absolute;
+  width:0;
+  height:2px;
+  bottom:-4px;
+  left:0;
+  background:#FBBF24;
+  transition:width 0.3s;
+}
+
+.nav a:hover::after {width:100%;}
+
+/* Nav içinde telefon butonu */
+.highlight-btn {
+  padding:8px 18px;
+  border-radius:999px;
+  background:#FBBF24;
+  color:#1B1B1B;
+  font-weight:600;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  border:none;
+}
+
+.highlight-btn:hover {
+  background:#e0a800;
+  color:#000;
+}
+
+/* Dil butonu (desktop) */
+#lang-switcher {
+  background:#FBBF24;
+  color:#1B1B1B;
+  border:none;
+  padding:8px 18px;
+  border-radius:25px;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+
+#lang-switcher:hover {
+  background:#e0a800;
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* Hamburger menü */
+.menu-toggle {
+  display:none;
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  border:1px solid #E5E7EB;
+  background:#fff;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.menu-toggle span {
+  display:block;
+  width:18px;
+  height:2px;
+  background:#111827;
+  position:relative;
+  transition:0.2s ease;
+}
+
+.menu-toggle span::before,
+.menu-toggle span::after {
+  content:'';
+  position:absolute;
+  left:0;
+  width:18px;
+  height:2px;
+  background:#111827;
+  transition:0.2s ease;
+}
+
+.menu-toggle span::before {top:-6px;}
+.menu-toggle span::after {top:6px;}
+
+.menu-toggle.active span {
+  background:transparent;
+}
+
+.menu-toggle.active span::before {
+  top:0;
+  transform:rotate(45deg);
+}
+
+.menu-toggle.active span::after {
+  top:0;
+  transform:rotate(-45deg);
+}
+
+/* Hero */
+.hero {
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  min-height:85vh;
+  padding:40px 20px;
+  color:#fff;
+}
+
+.animated-bg {
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920&q=80') center/cover no-repeat;
+  filter:brightness(0.55);
+}
+
+.hero-content {
+  position:relative;
+  z-index:2;
+  padding:28px 20px;
+  max-width:640px;
+  backdrop-filter:blur(4px);
+  border-radius:20px;
+  background:rgba(0,0,0,0.2);
+}
+
+.hero-title {
+  font-family:'Playfair Display', serif;
+  font-size:42px;
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:15px;
+}
+
+.hero-sub {
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.cta-btn {
+  display:inline-block;
+  background:#FBBF24;
+  color:#1B1B1B;
+  padding:14px 32px;
+  border-radius:15px;
+  font-weight:700;
+  text-decoration:none;
+  font-size:17px;
+  transition:all 0.3s ease;
+  box-shadow:0 10px 24px rgba(0,0,0,0.25);
+}
+
+.cta-btn:hover {
+  background:#e0a800;
+  transform:translateY(-1px);
+}
+
+/* Sections */
+.section {
+  padding:80px 20px;
+}
+
+.section-title {
+  font-family:'Playfair Display', serif;
+  font-size:34px;
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.section-desc {
+  font-size:16px;
+  text-align:center;
+  max-width:850px;
+  margin:0 auto 10px;
+  line-height:1.8;
+}
+
+/* Grid Cards */
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:24px;
+  margin-top:30px;
+}
+
+.card {
+  background:#fff;
+  padding:24px 20px;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.06);
+  text-align:center;
+  transition:all 0.4s ease;
+  cursor:pointer;
+}
+
+.card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 18px 35px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+  font-family:'Playfair Display', serif;
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+/* Spotlight */
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:24px;
+  margin-top:32px;
+}
+
+.spotlight {
+  background:#fff;
+  padding:24px 20px;
+  border-radius:15px;
+  font-weight:600;
+  font-size:18px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,0.06);
+  cursor:pointer;
+  transition:all 0.4s ease;
+}
+
+.spotlight:hover {
+  background:#edefeb;
+  transform:translateY(-6px);
+  box-shadow:0 14px 30px rgba(0,0,0,0.14);
+}
+
+/* Fade-in */
+.fade-in {
+  opacity:0;
+  transform:translateY(25px);
+  transition:0.8s ease;
+}
+
+.fade-in.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Contact */
+.contact-cards {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:24px;
+  margin-top:30px;
+}
+
+.contact-card {
+  background:#fff;
+  padding:26px 20px;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  text-align:center;
+  min-width:230px;
+  transition:all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.14);
+}
+
+.contact-card h3 {
+  font-family:'Playfair Display', serif;
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.contact-link {
+  font-size:16px;
+  color:#FBBF24;
+  text-decoration:none;
+}
+
+.contact-link:hover {
+  color:#e0a800;
+  text-decoration:underline;
+}
+
+/* Footer */
+.footer {
+  background:#fff;
+  color:#1B1B1B;
+  text-align:center;
+  padding:24px 10px;
+  font-size:14px;
+}
+
+/* Mobile TR/EN Button at bottom */
+#mobile-lang {
+  display:none;
+  position:fixed;
+  bottom:16px;
+  right:16px;
+  z-index:999;
+  background:#FBBF24;
+  color:#1B1B1B;
+  border:none;
+  padding:10px 18px;
+  border-radius:25px;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media(max-width:992px){
+  .hero-title{font-size:36px;}
+  .hero-sub{font-size:16px;}
+}
+
+@media(max-width:768px){
+  .nav-container{
+    gap:10px;
+  }
+
+  /* Nav mobilde gizli başlasın */
+  .nav {
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    background:#fff;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:10px 20px 14px;
+    border-bottom:1px solid #E5E7EB;
+    display:none;
+  }
+
+  .nav.open {
+    display:flex;
+  }
+
+  .menu-toggle {
+    display:flex;
+  }
+
+  #lang-switcher {
+    display:none;
+  }
+
+  .hero {
+    padding-top:70px;
+    padding-bottom:70px;
+  }
+
+  .hero-content {
+    padding:22px 14px;
+  }
+}
+
+@media(max-width:576px){
+  .hero-title{font-size:28px;}
+  .hero-sub{font-size:14px;}
+  .section-title{font-size:24px;}
+  .section-desc{font-size:14px;}
+  .contact-card{width:100%; max-width:320px;}
+  #mobile-lang{display:block;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-container">
+    <h1 class="logo">Koru<span>Group</span></h1>
+
+    <!-- Hamburger (mobil) -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menü">
+      <span></span>
+    </button>
+
+    <nav class="nav" id="main-nav">
+      <a href="#about" class="lang-text" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</a>
+      <a href="#services" class="lang-text" data-tr="Hizmetler" data-en="Services">Hizmetler</a>
+      <a href="#whyus" class="lang-text" data-tr="Neden Biz?" data-en="Why Us?">Neden Biz?</a>
+      <a href="tel:+905354677498" class="highlight-btn lang-text" data-tr="İletişim" data-en="Call Us">İletişim</a>
+      <button id="lang-switcher" type="button">EN</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="animated-bg"></div>
+  <div class="hero-content">
+    <h2 class="hero-title lang-text"
+        data-tr="Gayrimenkulde Güvenin Yeni Adresi"
+        data-en="The New Address of Trust in Real Estate">
+      Gayrimenkulde Güvenin Yeni Adresi
+    </h2>
+    <p class="hero-sub lang-text"
+       data-tr="10 yıllık deneyimimizle yatırımlarınızı güvenle yönlendiriyoruz."
+       data-en="With 10 years of experience, we manage your investments safely.">
+      10 yıllık deneyimimizle yatırımlarınızı güvenle yönlendiriyoruz.
+    </p>
+    <a href="tel:+905354677498"
+       class="cta-btn lang-text"
+       data-tr="Bize Ulaşın"
+       data-en="Call Us">
+      Bize Ulaşın
+    </a>
+  </div>
+</section>
+
+<section id="about" class="section fade-in">
+  <div class="container">
+    <h2 class="section-title lang-text"
+        data-tr="Hakkımızda"
+        data-en="About Us">
+      Hakkımızda
+    </h2>
+    <p class="section-desc lang-text"
+       data-tr="Koru Group, şeffaf ve profesyonel yaklaşımıyla sektörde fark yaratan bir gayrimenkul danışmanlık şirketidir. Bugüne kadar 500+ mutlu müşteriye hizmet verdik."
+       data-en="Koru Group is a real estate consultancy that stands out in the sector with a transparent and professional approach. We have served 500+ satisfied clients so far.">
+      Koru Group, şeffaf ve profesyonel yaklaşımıyla sektörde fark yaratan bir gayrimenkul danışmanlık şirketidir. Bugüne kadar 500+ mutlu müşteriye hizmet verdik.
+    </p>
+  </div>
+</section>
+
+<section id="services" class="section fade-in">
+  <div class="container">
+    <h2 class="section-title lang-text"
+        data-tr="Hizmetlerimiz"
+        data-en="Our Services">
+      Hizmetlerimiz
+    </h2>
+    <div class="grid">
+      <div class="card">
+        <h3 class="lang-text"
+            data-tr="🏡 Değerleme"
+            data-en="🏡 Valuation">
+          🏡 Değerleme
+        </h3>
+        <p class="lang-text"
+           data-tr="Profesyonel analizlerle doğru fiyatlandırma."
+           data-en="Accurate pricing with professional analysis.">
+          Profesyonel analizlerle doğru fiyatlandırma.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="lang-text"
+            data-tr="📊 Portföy Yönetimi"
+            data-en="📊 Portfolio Management">
+          📊 Portföy Yönetimi
+        </h3>
+        <p class="lang-text"
+           data-tr="Yatırımlarınızı güvenle yönetiyoruz."
+           data-en="We manage your investments safely.">
+          Yatırımlarınızı güvenle yönetiyoruz.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="lang-text"
+            data-tr="🤝 Danışmanlık"
+            data-en="🤝 Consultancy">
+          🤝 Danışmanlık
+        </h3>
+        <p class="lang-text"
+           data-tr="Satış ve kiralama süreçlerinde doğru yönlendirme."
+           data-en="Guidance in sales and rental processes.">
+          Satış ve kiralama süreçlerinde doğru yönlendirme.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="lang-text"
+            data-tr="📣 Pazarlama"
+            data-en="📣 Marketing">
+          📣 Pazarlama
+        </h3>
+        <p class="lang-text"
+           data-tr="Modern reklam ve tanıtım stratejileri ile hızlı sonuç."
+           data-en="Fast results with modern advertising strategies.">
+          Modern reklam ve tanıtım stratejileri ile hızlı sonuç.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="whyus" class="section fade-in">
+  <div class="container">
+    <h2 class="section-title lang-text"
+        data-tr="Neden Biz?"
+        data-en="Why Us?">
+      Neden Biz?
+    </h2>
+    <div class="grid-3">
+      <div class="spotlight lang-text"
+           data-tr="⚡ Hızlı Sonuç"
+           data-en="⚡ Fast Results">
+        ⚡ Hızlı Sonuç
+      </div>
+      <div class="spotlight lang-text"
+           data-tr="🔍 Şeffaf Hizmet"
+           data-en="🔍 Transparent Service">
+        🔍 Şeffaf Hizmet
+      </div>
+      <div class="spotlight lang-text"
+           data-tr="🎯 Profesyonel Yaklaşım"
+           data-en="🎯 Professional Approach">
+        🎯 Profesyonel Yaklaşım
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section fade-in">
+  <div class="container">
+    <h2 class="section-title lang-text"
+        data-tr="İletişim"
+        data-en="Contact">
+      İletişim
+    </h2>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <h3 class="lang-text" data-tr="Telefon" data-en="Phone">Telefon</h3>
+        <a href="tel:+905354677498" class="contact-link">+90 535 467 7498</a>
+      </div>
+      <div class="contact-card">
+        <h3 class="lang-text" data-tr="E-mail" data-en="E-mail">E-mail</h3>
+        <a href="mailto:emretelglobal@gmail.com" class="contact-link">emretelglobal@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <h3 class="lang-text" data-tr="Adres" data-en="Address">Adres</h3>
+        <a href="https://www.google.com/maps?q=İstanbul,+Türkiye"
+           target="_blank"
+           class="contact-link lang-text"
+           data-tr="İstanbul / Türkiye"
+           data-en="Istanbul / Turkey">
+          İstanbul / Türkiye
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile language switcher -->
+<button id="mobile-lang" type="button">EN</button>
+
+<footer class="footer lang-text"
+        data-tr="© 2025 Koru Group – Tüm Hakları Saklıdır."
+        data-en="© 2025 Koru Group – All Rights Reserved.">
+  © 2025 Koru Group – Tüm Hakları Saklıdır.
+</footer>
+
+<script>
+// HAMBURGER MENÜ
+const menuToggle = document.getElementById('menu-toggle');
+const nav = document.getElementById('main-nav');
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    nav.classList.toggle('open');
+  });
+}
+
+// Smooth scroll (sadece sayfa içi linkler için)
+document.querySelectorAll(".nav a").forEach(a => {
+  const href = a.getAttribute("href") || "";
+  if (href.startsWith("#")) {
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (!target) return;
+      const headerHeight = document.querySelector('.header').offsetHeight;
+      const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 5;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      // mobilde menüyü kapat
+      nav.classList.remove('open');
+      menuToggle.classList.remove('active');
+    });
+  }
+});
+
+// Fade-in
+const fadeEls = document.querySelectorAll(".fade-in");
+function checkFade() {
+  fadeEls.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add("visible");
+    }
+  });
+}
+window.addEventListener("scroll", checkFade);
+checkFade();
+
+// Language Switcher - merkezi state
+let currentLang = 'tr';
+
+function applyLanguage(lang) {
+  document.querySelectorAll(".lang-text").forEach(el => {
+    const text = el.getAttribute(`data-${lang}`);
+    if (text !== null && text !== undefined) {
+      el.textContent = text;
+    }
+  });
+
+  const desktopBtn = document.getElementById("lang-switcher");
+  const mobileBtn = document.getElementById("mobile-lang");
+  const btnLabel = lang === 'tr' ? 'EN' : 'TR';
+
+  if (desktopBtn) desktopBtn.textContent = btnLabel;
+  if (mobileBtn) mobileBtn.textContent = btnLabel;
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'tr' ? 'en' : 'tr';
+  applyLanguage(currentLang);
+}
+
+const desktopLangBtn = document.getElementById("lang-switcher");
+if (desktopLangBtn) {
+  desktopLangBtn.addEventListener("click", toggleLanguage);
+}
+
+const mobileLangBtn = document.getElementById("mobile-lang");
+if (mobileLangBtn) {
+  mobileLangBtn.addEventListener("click", toggleLanguage);
+}
+
+// İlk yüklemede TR baz alınır
+applyLanguage(currentLang);
+</script>
+
+</body>
+</html>
